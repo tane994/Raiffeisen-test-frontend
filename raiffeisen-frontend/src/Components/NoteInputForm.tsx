@@ -1,28 +1,13 @@
 import { useState } from "react";
 import { TextField, Button } from "@mui/material";
-import axios from "axios";
 
-const NoteInputForm = () => {
+const NoteInputForm = ({ handleNoteSubmit }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  const saveNote = () => {
-    axios.post("http://localhost:8081/api/v1/notes", {
-      title: title,
-      content: content,
-    })
-      .then((response: AxiosResponse) => {
-        setNotesData((prev) => [
-          ...prev,
-          {
-            title: title,
-            content: content,
-          },
-        ]);
-      })
-      .catch((error) => console.error("Error posting data:", error)); 
+  const handleSubmit = () => {
+    handleNoteSubmit({ title, content });
   };
-  
 
   return (
     <div>
@@ -51,7 +36,7 @@ const NoteInputForm = () => {
         variant="contained"
         color="primary"
         sx={{ mt: 2, width: "100%" }}
-        onSubmit={saveNote}
+        onClick={handleSubmit}
       >
         Save Note
       </Button>
