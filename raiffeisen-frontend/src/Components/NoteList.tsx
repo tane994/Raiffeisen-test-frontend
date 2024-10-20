@@ -32,7 +32,7 @@ const NoteList = ({ notesData, onDeleteNote, onUpdateNote }) => {
   };
 
   const handleSave = (id) => {
-    onUpdateNote(id, editedTitle, editedContent);
+    onUpdateNote(id, { title: editedTitle, content: editedContent });
     setEditingId(null);
   };
 
@@ -40,7 +40,7 @@ const NoteList = ({ notesData, onDeleteNote, onUpdateNote }) => {
     setEditingId(null);
   };
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id) => {
     onDeleteNote(id);
   };
 
@@ -91,7 +91,7 @@ const NoteList = ({ notesData, onDeleteNote, onUpdateNote }) => {
                       )}
                     </TableCell>
                     <TableCell align="left">{note.createdAt}</TableCell>
-                    <TableCell align="left">{note.updateAt}</TableCell>
+                    <TableCell align="left">{note.updatedAt}</TableCell>
                     <TableCell align="center">
                       {editingId === note.id ? (
                         <>
@@ -107,7 +107,7 @@ const NoteList = ({ notesData, onDeleteNote, onUpdateNote }) => {
                           <IconButton onClick={() => handleEdit(note)}>
                             <EditIcon />
                           </IconButton>
-                          <IconButton onClick={handleDelete(note.id)}>
+                          <IconButton onClick={() => handleDelete(note.id)}>
                             <DeleteIcon />
                           </IconButton>
                         </>
