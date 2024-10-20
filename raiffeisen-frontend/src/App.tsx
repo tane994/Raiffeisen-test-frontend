@@ -3,6 +3,7 @@ import NoteInputForm from "./Components/NoteInputForm";
 import NoteList from "./Components/NoteList";
 import axios from "axios";
 import { Typography } from "@mui/material";
+import raiffeisenLogo from "./assets/raiffeisen.png";
 
 function App() {
   const [notesData, setNotesData] = useState([]);
@@ -23,7 +24,21 @@ function App() {
 
   return (
     <div>
-      <Typography variant="h2">Raiffeisen Note App</Typography>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          marginBottom: "20px",
+        }}
+      >
+        <img
+          src={raiffeisenLogo}
+          alt="Raiffeisen Logo"
+          style={{ width: 50, height: "auto", marginRight: "10px" }}
+        />
+        <Typography variant="h2">Raiffeisen Note App</Typography>
+      </div>
       <NoteInputForm />
       <br />
       <NoteList notesData={notesData} />

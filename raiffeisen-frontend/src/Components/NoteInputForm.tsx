@@ -1,9 +1,28 @@
 import { useState } from "react";
 import { TextField, Button } from "@mui/material";
+import axios from "axios";
 
 const NoteInputForm = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+
+  const saveNote = () => {
+    axios.post("http://localhost:8081/api/v1/notes", {
+      title: title,
+      content: content,
+    })
+      .then((response: AxiosResponse) => {
+        setNotesData((prev) => [
+          ...prev,
+          {
+            title: title,
+            content: content,
+          },
+        ]);
+      })
+      .catch((error) => console.error("Error posting data:", error)); 
+  };
+  
 
   return (
     <div>
@@ -11,9 +30,9 @@ const NoteInputForm = () => {
         className="text-field"
         label="Title"
         variant="outlined"
-        //value={movieName}
+        value={title}
         onChange={(e) => setTitle(e.target.value)}
-        sx={{ width: "100%", mt: 1, mb: 1, fontFamily: "Roboto" }}
+        sx={{ width: "100%", mt: 1, mb: 1 }}
         required
       />
       <TextField
@@ -22,9 +41,9 @@ const NoteInputForm = () => {
         variant="outlined"
         multiline
         rows={4}
-        //value={review}
+        value={content}
         onChange={(e) => setContent(e.target.value)}
-        sx={{ width: "100%", mt: 1, mb: 1, fontFamily: "Baskerville" }}
+        sx={{ width: "100%", mt: 1, mb: 1 }}
         required
       />
       <Button
@@ -32,6 +51,7 @@ const NoteInputForm = () => {
         variant="contained"
         color="primary"
         sx={{ mt: 2, width: "100%" }}
+        onSubmit={saveNote}
       >
         Save Note
       </Button>
