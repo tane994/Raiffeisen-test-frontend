@@ -33,54 +33,42 @@ function App() {
     }
   };
 
-  const saveNote = (title: string, content: string ) => {
-    axios
-      .post(API_URL, { title, content })
-      .then((response) => {
-        setNotesData((prev) => [...prev, { title, content }]);
-      })
-      .catch((error) => {
-        console.error("Error posting data:", error);
-        setError(
-          error.response?.data?.message ||
-            "Failed to save note. Please try again."
-        );
+  const saveNote = async (title: string, content: string) => {
+    try {
+      const response: AxiosResponse<Note> = await axios.post<Note>(API_URL, {
+        title,
+        content,
       });
+      setNotesData((prev) => [...prev, response.data]);
+    } catch (error) {
+      console.error("Error posting data:", error);
+      setError("Failed to save note. Please try again.");
+    }
   };
 
-  const deleteNote = (id: number) => {
-    axios
-      .delete(`${API_URL}/${id}`)
-      .then(() => {
-        setNotesData((prev) => prev.filter((note) => note.id !== id));
-      })
-      .catch((error) => {
-        console.error("Error deleting note:", error);
-        setError(
-          error.response?.data?.message ||
-            "Failed to delete note. Please try again."
-        );
-      });
+  const deleteNote = async (id: number) => {
+    try {
+      await axios.delete(`${API_URL}/${id}`);
+      setNotesData((prev) => prev.filter((note) => note.id !== id));
+    } catch (error) {
+      console.error("Error deleting note:", error);
+      setError("Failed to delete note. Please try again.");
+    }
   };
 
-  const updateNote = (
+  const updateNote = async (
     id: number,
     updatedNote: { title: string; content: string }
   ) => {
-    axios
-      .put(`${API_URL}/${id}`, updatedNote)
-      .then((response) => {
-        setNotesData((prev) =>
-          prev.map((note) => (note.id === id ? response.data : note))
-        );
-      })
-      .catch((error) => {
-        console.error("Error updating note:", error);
-        setError(
-          error.response?.data?.message ||
-            "Failed to update note. Please try again."
-        );
-      });
+    try {
+      const response = await axios.put<Note>(`${API_URL}/${id}`, updatedNote);
+      setNotesData((prev) =>
+        prev.map((note) => (note.id === id ? response.data : note))
+      );
+    } catch (error) {
+      console.error("Error updating note:", error);
+      setError("Failed to update note. Please try again.");
+    }
   };
 
   return (
