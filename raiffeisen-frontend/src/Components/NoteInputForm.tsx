@@ -1,12 +1,20 @@
 import { useState } from "react";
 import { TextField, Button } from "@mui/material";
 
+interface Note {
+  id: number;
+  title: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 const NoteInputForm = ({ handleNoteSubmit }) => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [title, setTitle] = useState<string>("");
+  const [content, setContent] = useState<string>("");
 
   const handleSubmit = () => {
-    handleNoteSubmit({ title, content });
+    handleNoteSubmit(title, content);
   };
 
   return (

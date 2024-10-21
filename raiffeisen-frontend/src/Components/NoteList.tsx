@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Typography,
   TableContainer,
@@ -19,6 +19,14 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Cancel";
+
+interface Note {
+  id: number;
+  title: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+}
 
 const NoteList = ({ notesData, onDeleteNote, onUpdateNote }) => {
   const [editingId, setEditingId] = useState(null);
