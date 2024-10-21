@@ -48,6 +48,8 @@ To use the Raiffeisen Note App Frontend, follow these steps:
 
 The Raiffeisen Note App follows a client-server architecture. Here's an overview of the system:
 
+![Architecture - Raiffeisen Note App](https://github.com/user-attachments/assets/c41e7777-161b-4000-9295-8ead15b5118b)
+
 ```
 [Client Side]
     |
