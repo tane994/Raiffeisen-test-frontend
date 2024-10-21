@@ -50,22 +50,6 @@ The Raiffeisen Note App follows a client-server architecture. Here's an overview
 
 ![Architecture - Raiffeisen Note App](https://github.com/user-attachments/assets/63cf3185-a9ca-413c-b9de-7c1d770c7b97)
 
-```
-[Client Side]
-    |
-    | (HTTP Requests)
-    v
-[API Layer]
-    |
-    v
-[Service Layer]
-    |
-    v
-[Data Access Layer]
-    |
-    v
-[Database]
-```
 
 - **Client Side**: The frontend is built using React, providing a user interface for interacting with notes.
 - **API Layer**: Handles HTTP requests (GET, POST, PUT, DELETE) between the client and server.
