@@ -28,19 +28,28 @@ interface Note {
   updatedAt: string;
 }
 
-const NoteList = ({ notesData, onDeleteNote, onUpdateNote }) => {
-  const [editingId, setEditingId] = useState(null);
-  const [editedTitle, setEditedTitle] = useState("");
-  const [editedContent, setEditedContent] = useState("");
+interface NoteListProps {
+  notesData: Note[];
+  onDelete: (id: number) => void;
+  onUpdate: (
+    id: number,
+    updatedNote: { title: string; content: string }
+  ) => void;
+}
 
-  const handleEdit = (note) => {
+const NoteList = ({ notesData, onDelete, onUpdate }: NoteListProps) => {
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const [editedTitle, setEditedTitle] = useState<string>("");
+  const [editedContent, setEditedContent] = useState<string>("");
+
+  const handleEdit = (note: Note) => {
     setEditingId(note.id);
     setEditedTitle(note.title);
     setEditedContent(note.content);
   };
 
-  const handleSave = (id) => {
-    onUpdateNote(id, { title: editedTitle, content: editedContent });
+  const handleSave = (id: number) => {
+    onUpdate(id, { title: editedTitle, content: editedContent });
     setEditingId(null);
   };
 
@@ -48,8 +57,8 @@ const NoteList = ({ notesData, onDeleteNote, onUpdateNote }) => {
     setEditingId(null);
   };
 
-  const handleDelete = (id) => {
-    onDeleteNote(id);
+  const handleDelete = (id: number) => {
+    onDelete(id);
   };
 
   return (

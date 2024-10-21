@@ -1,20 +1,19 @@
 import { useState } from "react";
 import { TextField, Button } from "@mui/material";
 
-interface Note {
-  id: number;
-  title: string;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
+interface NoteInputFormProps {
+  onSubmit: (title: string, content: string) => void;
 }
 
-const NoteInputForm = ({ handleNoteSubmit }) => {
+const NoteInputForm = ({ onSubmit }: NoteInputFormProps) => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
 
-  const handleSubmit = () => {
-    handleNoteSubmit(title, content);
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSubmit(title, content);
+    setTitle("");
+    setContent("");
   };
 
   return (

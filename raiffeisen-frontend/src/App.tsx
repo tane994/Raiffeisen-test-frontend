@@ -61,7 +61,10 @@ function App() {
     updatedNote: { title: string; content: string }
   ) => {
     try {
-      const response = await axios.put<Note>(`${API_URL}/${id}`, updatedNote);
+      const response: AxiosResponse<Note> = await axios.put<Note>(
+        `${API_URL}/${id}`,
+        updatedNote
+      );
       setNotesData((prev) =>
         prev.map((note) => (note.id === id ? response.data : note))
       );
@@ -88,12 +91,12 @@ function App() {
         />
         <Typography variant="h2">Raiffeisen Note App</Typography>
       </div>
-      <NoteInputForm handleNoteSubmit={saveNote} />
+      <NoteInputForm onSubmit={saveNote} />
       <br />
       <NoteList
         notesData={notesData}
-        onDeleteNote={deleteNote}
-        onUpdateNote={updateNote}
+        onDelete={deleteNote}
+        onUpdate={updateNote}
       />
     </div>
   );
