@@ -17,7 +17,6 @@ const API_URL: string = "http://localhost:8081/api/v1/notes";
 
 function App() {
   const [notesData, setNotesData] = useState<Note[]>([]);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchNotes();
@@ -29,7 +28,6 @@ function App() {
       setNotesData(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
-      setError("Failed to fetch notes. Please try again.");
     }
   };
 
@@ -42,7 +40,6 @@ function App() {
       setNotesData((prev) => [...prev, response.data]);
     } catch (error) {
       console.error("Error posting data:", error);
-      setError("Failed to save note. Please try again.");
     }
   };
 
@@ -52,7 +49,6 @@ function App() {
       setNotesData((prev) => prev.filter((note) => note.id !== id));
     } catch (error) {
       console.error("Error deleting note:", error);
-      setError("Failed to delete note. Please try again.");
     }
   };
 
@@ -70,7 +66,6 @@ function App() {
       );
     } catch (error) {
       console.error("Error updating note:", error);
-      setError("Failed to update note. Please try again.");
     }
   };
 
